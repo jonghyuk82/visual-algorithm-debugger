@@ -4,7 +4,7 @@ A web application for exploring C# algorithms step by step.
 
 ## Status
 
-The React frontend foundation and a minimal FastAPI health endpoint are implemented. The frontend displays a page header, a Workspace placeholder, and basic layout styles. Frontend-to-API integration, C# execution, and visualizations are not yet implemented.
+The React frontend foundation and a minimal FastAPI health endpoint are implemented. The frontend displays a page header, a Workspace placeholder, and basic layout styles. A connection-check button calls the API health endpoint through the Vite development proxy. C# execution and visualizations are not yet implemented.
 
 The project rebuilds an existing C# and Roslyn reference application using separate frontend, API, and execution services.
 
