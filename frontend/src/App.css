@@ -14,17 +14,5 @@
 
 .app>header p {
   margin: 0;
-  color: #64748b;
-}
-
-.app>section {
-  min-height: 400px;
-  padding: 24px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-}
-
-.app>section h2 {
-  margin-top: 0;
+  color: var(--mantine-color-dimmed);
 }

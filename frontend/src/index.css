@@ -1,7 +1,7 @@
 :root {
   font-family: system-ui, sans-serif;
-  color: #1f2937;
-  background-color: #f8fafc;
+  color: var(--mantine-color-text);
+  background-color: var(--mantine-color-body);
 }
 
 * {
