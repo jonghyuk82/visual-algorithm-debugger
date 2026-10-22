@@ -4,7 +4,7 @@ A web application for exploring C# algorithms step by step.
 
 ## Status
 
-The React frontend foundation is implemented: a page header, a Workspace placeholder, and basic layout styles. C# execution, API integration, and visualizations are not yet implemented in this repository.
+The React frontend foundation and a minimal FastAPI health endpoint are implemented. The frontend displays a page header, a Workspace placeholder, and basic layout styles. Frontend-to-API integration, C# execution, and visualizations are not yet implemented.
 
 The project rebuilds an existing C# and Roslyn reference application using separate frontend, API, and execution services.
 
@@ -48,16 +48,58 @@ The development server uses http://localhost:5173 and requests that the browser 
 
 For commands, file responsibilities, and troubleshooting, see the [frontend README](frontend/README.md).
 
+## Run the API
+
+Use Python 3.12. The current local environment uses Python 3.12.10.
+
+### First-time setup
+
+From the repository root:
+
+```bash
+cd api
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+The virtual environment keeps API dependencies separate from other projects. Its `.venv/` directory is excluded from Git. Package versions are pinned in `api/requirements.txt`. After intentional dependency changes, run `.venv/bin/python -m pip freeze > requirements.txt` from `api/` and review the changes before committing.
+
+### Start the development server
+
+From `api/`, run the virtual environment's Python directly; activation is not required:
+
+```bash
+.venv/bin/python -m uvicorn main:app --reload --port 8000
+```
+
+Alternatively, activate the environment and use `python`:
+
+```bash
+source .venv/bin/activate
+python -m uvicorn main:app --reload --port 8000
+```
+
+Activation lasts for the current terminal session. Repeat it in a new terminal, or use the direct `.venv/bin/python` command instead. Run `deactivate` to leave an activated environment.
+
+`main:app` selects the `app` object in `main.py`. The `--reload` option restarts the server when source files change and is intended for local development.
+
+- Health endpoint: http://127.0.0.1:8000/health — expected response: `{"status":"ok"}`.
+- Interactive API documentation: http://127.0.0.1:8000/docs.
+- Stop the server with `Ctrl+C`.
+
+Run the frontend and API in separate terminals when using both.
+
 ## Repository Layout
 
 ```text
 visual-algorithm-debugger/
 ├── frontend/          # Implemented frontend foundation
+├── api/               # Minimal FastAPI app with GET /health
 ├── docs/              # Requirements and project documentation
 └── README.md
 ```
 
-The target layout also includes `api/`, `execution-engine/`, `.github/workflows/`, and `docker-compose.yml`. Backend directories are currently empty placeholders; Git does not track empty directories. Workflow and Compose files have not been created.
+The target layout also includes `execution-engine/`, `.github/workflows/`, and `docker-compose.yml`. The execution engine directory is currently an empty placeholder; Git does not track empty directories. Workflow and Compose files have not been created.
 
 ## Deployment Roadmap
 
