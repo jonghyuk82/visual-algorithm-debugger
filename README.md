@@ -4,7 +4,7 @@ A web application for exploring C# algorithms step by step.
 
 ## Status
 
-The React frontend foundation and a minimal FastAPI health endpoint are implemented. The frontend displays a page header, a Workspace placeholder, and basic layout styles. A connection-check button calls the API health endpoint through the Vite development proxy. C# execution and visualizations are not yet implemented.
+The React frontend foundation and a minimal FastAPI health endpoint are implemented. The frontend displays a page header, responsive Code, Visualization, Variables, and Call Stack placeholder panels styled with Mantine. A connection-check button calls the API health endpoint through the Vite development proxy. C# execution and visualizations are not yet implemented.
 
 The project rebuilds an existing C# and Roslyn reference application using separate frontend, API, and execution services.
 
@@ -23,7 +23,7 @@ See [requirements](docs/requirements.md) for the current scope and follow-up req
 
 | Component | Technology | Responsibility |
 | --- | --- | --- |
-| Frontend | React, TypeScript, Vite | Code input, trace navigation, and visualizations |
+| Frontend | React, TypeScript, Vite, Mantine | Code input, trace navigation, and visualizations |
 | API | Python, FastAPI | Request validation and execution orchestration |
 | Execution engine | C#, .NET, Roslyn | Compilation, instrumentation, execution, and trace collection |
 
