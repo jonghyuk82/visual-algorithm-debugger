@@ -58,3 +58,6 @@ obj/
 # =========================
 tmp/
 temp/
+
+# Local Korean documentation companions (all directories)
+*.ko.md

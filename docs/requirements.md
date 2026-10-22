@@ -12,7 +12,7 @@ This document records the current implementation scope and agreed follow-up requ
 - API: Python + FastAPI.
 - Execution engine: .NET + Roslyn for C# execution.
 - Use a trace-first model: execute the algorithm, return the recorded trace, and navigate it in the frontend.
-- App UI text and project documentation use English.
+- App UI text and canonical project documentation use English. Maintain Korean documentation companions locally as `*.ko.md`, update them alongside the English originals, and exclude them from Git.
 
 ## Delivery and deployment requirements
 
