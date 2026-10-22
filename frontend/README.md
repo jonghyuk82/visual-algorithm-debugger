@@ -4,7 +4,7 @@ React, TypeScript, and Vite frontend for the Visual Algorithm Debugger.
 
 ## Current Scope
 
-The frontend currently displays a page header and an accessible Workspace placeholder with basic layout styles. The code editor, API integration, execution controls, and visualizations are planned features.
+The frontend currently displays a page header and an accessible Workspace placeholder with basic layout styles. An API connection-check button displays request progress and success/failure states. The code editor, execution controls, and visualizations are planned features.
 
 ## Prerequisites
 
@@ -65,3 +65,11 @@ npm run lint
 ```
 
 Both commands passed after the frontend setup and starter asset cleanup. Browser rendering and development-server behavior require a manual check.
+
+## API Connection Check
+
+Start FastAPI in a separate terminal on port 8000 using the root README instructions. In the Vite development page, click **Check API Connection**. The status changes from `Not checked` to `Checking...`, then `Connected` for a successful JSON response with `status: "ok"`, or `Unable to connect` for a failed request or unexpected response. The button is disabled during the request.
+
+Vite forwards `/api/health` to `http://127.0.0.1:8000/health`, removing the `/api` prefix. This proxy is development-only; production routing must be configured separately. To check failure handling, stop FastAPI and click the button again.
+
+The health request and response validation live in `src/api/health.ts`; `App.tsx` handles user interaction and display state. Production build and lint passed after this separation.
