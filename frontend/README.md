@@ -1,10 +1,10 @@
 # Visual Algorithm Debugger Frontend
 
-React, TypeScript, and Vite frontend for the Visual Algorithm Debugger.
+React, TypeScript, Vite, and Mantine frontend for the Visual Algorithm Debugger.
 
 ## Current Scope
 
-The frontend currently displays a page header and an accessible Workspace placeholder with basic layout styles. An API connection-check button displays request progress and success/failure states. The code editor, execution controls, and visualizations are planned features.
+The frontend displays a Mantine header with API status and a loading-aware connection button. The accessible workspace contains Code, Visualization, Variables, and Call Stack placeholder panels in two columns at the md breakpoint and above, and one column below it. An API connection-check button displays request progress and success/failure states. The code editor, execution controls, and visualizations are planned features.
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Run `npm run build` before `npm run preview`. Preview is a local inspection tool
 | File | Responsibility |
 | --- | --- |
 | `index.html` | HTML entry page and React root element |
-| `src/main.tsx` | Mount the React application and import global styles |
+| `src/main.tsx` | Mount the React application, configure MantineProvider, and import Mantine and global styles |
 | `src/App.tsx` | Application header and Workspace markup |
 | `src/App.css` | Application container and panel styles |
 | `src/index.css` | Global typography, colors, and resets |
@@ -73,3 +73,7 @@ Start FastAPI in a separate terminal on port 8000 using the root README instruct
 Vite forwards `/api/health` to `http://127.0.0.1:8000/health`, removing the `/api` prefix. This proxy is development-only; production routing must be configured separately. To check failure handling, stop FastAPI and click the button again.
 
 The health request and response validation live in `src/api/health.ts`; `App.tsx` handles user interaction and display state. Production build and lint passed after this separation.
+
+## Color Theme
+
+The header ActionIcon opens a menu with Light, Dark, and System options. Its sun, moon, or monitor icon reflects the selected preference; the menu marks the active choice. Mantine stores the preference locally, and System follows OS changes. MantineProvider defaults to auto when no preference is stored. Global background/text and header secondary text use Mantine color variables. Verify all three options, persistence after reload, OS changes in System mode, and keyboard menu navigation manually.
