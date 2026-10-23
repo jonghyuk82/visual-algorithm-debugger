@@ -11,6 +11,9 @@ import { Button, Group, useComputedColorScheme } from "@mantine/core";
 import "dockview-react/dist/styles/dockview.css";
 import CodeEditor from "./CodeEditor";
 import { createDefaultLayout } from "../workspace/defaultLayout";
+import { restoreLayout } from "../workspace/restoreLayout";
+import { useLayoutPersistence } from "../workspace/useLayoutPersistence";
+import { saveLayout } from "../workspace/layoutStorage";
 
 type WorkspaceProps = {
   code: string;
@@ -72,8 +75,10 @@ export default function DebuggerWorkspace({
 
   const [workspaceApi, setWorkspaceApi] = useState<DockviewApi | null>(null);
 
+  useLayoutPersistence(workspaceApi);
+
   function handleReady({ api }: DockviewReadyEvent) {
-    createDefaultLayout(api);
+    restoreLayout(api);
     setWorkspaceApi(api);
   }
 
@@ -82,6 +87,7 @@ export default function DebuggerWorkspace({
 
     workspaceApi.clear();
     createDefaultLayout(workspaceApi);
+    saveLayout(workspaceApi.toJSON());
   }
 
   return (
