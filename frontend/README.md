@@ -77,3 +77,9 @@ The health request and response validation live in `src/api/health.ts`; `App.tsx
 ## Color Theme
 
 The header ActionIcon opens a menu with Light, Dark, and System options. Its sun, moon, or monitor icon reflects the selected preference; the menu marks the active choice. Mantine stores the preference locally, and System follows OS changes. MantineProvider defaults to auto when no preference is stored. Global background/text and header secondary text use Mantine color variables. Verify all three options, persistence after reload, OS changes in System mode, and keyboard menu navigation manually.
+
+## Monaco Code Editor (VAD-106)
+
+`src/components/CodeEditor.tsx` is a controlled C# editor: App owns the source string and passes `value` and `onChange`. Monaco provides syntax highlighting, line numbers, and editing; it does not compile or execute C#, or supply a C# semantic language service. Editor sizing responds to container changes, and its theme follows Mantine’s resolved color scheme. Source state is in memory and resets on refresh.
+
+The current wrapper uses its default CDN loader. The installed `monaco-editor` dependency provides types but has not been wired as the local runtime. Initial runtime loading requires network access. Verify editing, clearing all text, resizing the browser, and Light/Dark/System changes manually. Build and lint passed during review. Docking and resizable panels are outside this branch.

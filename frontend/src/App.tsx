@@ -14,11 +14,20 @@ import {
   Menu,
   useMantineColorScheme,
 } from "@mantine/core";
+import CodeEditor from "./components/CodeEditor";
 
-function App() {
+export default function App() {
   const [apiStatus, setApiStatus] = useState("Not checked");
   const [isChecking, setIsChecking] = useState(false);
   const { colorScheme, setColorScheme } = useMantineColorScheme();
+
+  const [code, setCode] = useState(`public class Solution
+  {
+      public int Add(int a, int b)
+      {
+          return a + b;
+      }
+  }`);
 
   async function handleCheckApiHealth() {
     setIsChecking(true);
@@ -108,15 +117,21 @@ function App() {
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Label>Color theme</Menu.Label>
-                {([
-                  { value: "light", label: "Light" },
-                  { value: "dark", label: "Dark" },
-                  { value: "auto", label: "System" },
-                ] as const).map(({ value, label }) => (
+                {(
+                  [
+                    { value: "light", label: "Light" },
+                    { value: "dark", label: "Dark" },
+                    { value: "auto", label: "System" },
+                  ] as const
+                ).map(({ value, label }) => (
                   <Menu.Item
                     key={value}
                     onClick={() => setColorScheme(value)}
-                    rightSection={colorScheme === value ? <span aria-hidden="true">✓</span> : undefined}
+                    rightSection={
+                      colorScheme === value ? (
+                        <span aria-hidden="true">✓</span>
+                      ) : undefined
+                    }
                     aria-label={`${label}${colorScheme === value ? ", selected" : ""}`}
                   >
                     {label}
@@ -134,9 +149,7 @@ function App() {
             <Title order={2} size="h5">
               Code
             </Title>
-            <Text size="sm" c="dimmed" mt="sm">
-              Your C# code editor will appear here.
-            </Text>
+            <CodeEditor value={code} onChange={setCode} />
           </Paper>
 
           <Paper withBorder p="md" radius="md" mih={360}>
@@ -170,5 +183,3 @@ function App() {
     </main>
   );
 }
-
-export default App;
