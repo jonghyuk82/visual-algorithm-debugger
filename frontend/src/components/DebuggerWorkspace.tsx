@@ -1,14 +1,16 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   DockviewReact,
   themeDark,
   themeLight,
   type DockviewReadyEvent,
   type IDockviewPanelProps,
+  type DockviewApi,
 } from "dockview-react";
-import { useComputedColorScheme } from "@mantine/core";
+import { Button, Group, useComputedColorScheme } from "@mantine/core";
 import "dockview-react/dist/styles/dockview.css";
 import CodeEditor from "./CodeEditor";
+import { createDefaultLayout } from "../workspace/defaultLayout";
 
 type WorkspaceProps = {
   code: string;
@@ -29,19 +31,27 @@ function CodePanel() {
 
 function PlaceholderPanel({ api }: IDockviewPanelProps) {
   const descriptions: Record<string, string> = {
-    visualization: "Execute an algorithm to explore its data structures step by step.",
-    variables: "Local variables and value changes will appear during execution.",
+    visualization:
+      "Execute an algorithm to explore its data structures step by step.",
+    variables:
+      "Local variables and value changes will appear during execution.",
     callStack: "Inspect active method calls and recursive execution here.",
   };
 
   return (
     <div className="workspace-empty">
       <span className="workspace-empty-symbol" aria-hidden="true">
-        {api.id === "visualization" ? "◇" : api.id === "variables" ? "{ }" : "≡"}
+        {api.id === "visualization"
+          ? "◇"
+          : api.id === "variables"
+            ? "{ }"
+            : "≡"}
       </span>
       <h2>{api.title}</h2>
       <p>{descriptions[api.id]}</p>
-      <span className="workspace-empty-caption">Waiting for an execution trace</span>
+      <span className="workspace-empty-caption">
+        Waiting for an execution trace
+      </span>
     </div>
   );
 }
@@ -60,47 +70,40 @@ export default function DebuggerWorkspace({
 }: WorkspaceProps) {
   const colorScheme = useComputedColorScheme("light");
 
+  const [workspaceApi, setWorkspaceApi] = useState<DockviewApi | null>(null);
+
   function handleReady({ api }: DockviewReadyEvent) {
-    api.addPanel({
-      id: "code",
-      component: "code",
-      title: "Solution.cs",
-    });
+    createDefaultLayout(api);
+    setWorkspaceApi(api);
+  }
 
-    api.addPanel({
-      id: "visualization",
-      component: "placeholder",
-      title: "Visualization",
-      position: {
-        referencePanel: "code",
-        direction: "right",
-      },
-    });
+  function handleResetLayout() {
+    if (!workspaceApi) return;
 
-    api.addPanel({
-      id: "variables",
-      component: "placeholder",
-      title: "Variables",
-      initialHeight: 200,
-      position: { referencePanel: "code", direction: "below" },
-    });
-    api.addPanel({
-      id: "callStack",
-      component: "placeholder",
-      title: "Call Stack",
-      initialHeight: 200,
-      position: { referencePanel: "visualization", direction: "below" },
-    });
+    workspaceApi.clear();
+    createDefaultLayout(workspaceApi);
   }
 
   return (
     <CodeContext.Provider value={{ code, onCodeChange }}>
       <div className="workspace-dock-container">
+        <Group justify="flex-end" className="workspace-toolbar">
+          <Button
+            size="xs"
+            variant="subtle"
+            onClick={handleResetLayout}
+            disabled={!workspaceApi}
+          >
+            Reset layout
+          </Button>
+        </Group>
         <DockviewReact
           className="debugger-dock"
           components={components}
           onReady={handleReady}
-          theme={colorScheme === "dark" ? workspaceDarkTheme : workspaceLightTheme}
+          theme={
+            colorScheme === "dark" ? workspaceDarkTheme : workspaceLightTheme
+          }
         />
       </div>
     </CodeContext.Provider>

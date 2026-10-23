@@ -86,7 +86,7 @@ The current wrapper uses its default CDN loader. The installed `monaco-editor` d
 
 ## Docking Workspace (VAD-107)
 
-Dockview replaces the fixed grid with draggable tabs and resizable groups. The workspace fills the available viewport below a compact header and above a status bar. Initial groups contain Solution.cs, Visualization, Variables, and Call Stack. Monaco fills its group; source state remains in App. Empty panels explain their future purpose. Thin separators and blue hover/drag highlights provide an IDE-style appearance in Light/Dark/System modes. Drag a tab onto another group to combine tabs, or toward an edge to split; drag the divider to resize. Layout persistence and panel reopening controls are not yet implemented; refreshing restores the initial layout and sample source. Build and lint passed; visual and drag interactions require browser verification.
+Dockview replaces the fixed grid with draggable tabs and resizable groups. The workspace fills the available viewport below a compact header and above a status bar. Initial groups contain Solution.cs, Visualization, Variables, and Call Stack. Monaco fills its group; source state remains in App. Empty panels explain their future purpose. Thin separators and blue hover/drag highlights provide an IDE-style appearance in Light/Dark/System modes. Drag a tab onto another group to combine tabs, or toward an edge to split; drag the divider to resize. Layout persistence is not yet implemented; Reset layout restores closed panels, and refreshing restores the initial layout and sample source. Build and lint passed; visual and drag interactions require browser verification.
 
 Docking groups use subtle 6px rounded corners, 4px top tab corners, and an 8px outer workspace inset.
 
@@ -97,3 +97,7 @@ Panel outlines use real 1px borders rather than inset shadows, with a contrastin
 Resize dividers display a centered three-dot grip: vertical dots between side-by-side groups and horizontal dots between stacked groups. The decorative grip does not intercept pointer events; the existing Dockview divider remains the drag target.
 
 The selected tab in the active group uses semibold accent text: deep blue in Light mode and light blue in Dark mode.
+
+## Reset Layout (VAD-108)
+
+The workspace toolbar provides Reset layout. It clears the Dockview panels and recreates the four-group default layout defined in `src/workspace/defaultLayout.ts`. Initial setup and reset share that function. Reset restores closed panels and their default arrangement without changing the source string owned by App. It does not preserve editor cursor position or undo history. The button is disabled until Dockview is ready. Layout persistence is not implemented. Verify repeated resets after moving, resizing, tabbing, and closing panels, including all panels, and confirm edited source is retained.
