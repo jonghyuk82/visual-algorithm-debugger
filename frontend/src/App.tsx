@@ -5,8 +5,6 @@ import {
   Badge,
   Button,
   Group,
-  Paper,
-  SimpleGrid,
   Stack,
   Text,
   Title,
@@ -14,7 +12,8 @@ import {
   Menu,
   useMantineColorScheme,
 } from "@mantine/core";
-import CodeEditor from "./components/CodeEditor";
+// import CodeEditor from "./components/CodeEditor";
+import DebuggerWorkspace from "./components/DebuggerWorkspace";
 
 export default function App() {
   const [apiStatus, setApiStatus] = useState("Not checked");
@@ -48,10 +47,10 @@ export default function App() {
       <header>
         <Group justify="space-between" align="center" gap="md">
           <Stack gap={4}>
-            <Title order={1} size="h3">
+            <Title order={1} size="h5">
               Visual Algorithm Debugger
             </Title>
-            <Text size="sm" c="dimmed">
+            <Text size="xs" c="dimmed">
               Explore C# algorithm execution step by step.
             </Text>
           </Stack>
@@ -74,7 +73,8 @@ export default function App() {
 
             <Button
               type="button"
-              variant="light"
+              variant="subtle"
+              size="xs"
               onClick={handleCheckApiHealth}
               loading={isChecking}
             >
@@ -144,42 +144,12 @@ export default function App() {
       </header>
 
       <section aria-label="Debugger workspace">
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-          <Paper withBorder p="md" radius="md" mih={360}>
-            <Title order={2} size="h5">
-              Code
-            </Title>
-            <CodeEditor value={code} onChange={setCode} />
-          </Paper>
-
-          <Paper withBorder p="md" radius="md" mih={360}>
-            <Title order={2} size="h5">
-              Visualization
-            </Title>
-            <Text size="sm" c="dimmed" mt="sm">
-              Run your code to explore data structures.
-            </Text>
-          </Paper>
-
-          <Paper withBorder p="md" radius="md" mih={220}>
-            <Title order={2} size="h5">
-              Variables
-            </Title>
-            <Text size="sm" c="dimmed" mt="sm">
-              Variable values will appear during trace navigation.
-            </Text>
-          </Paper>
-
-          <Paper withBorder p="md" radius="md" mih={220}>
-            <Title order={2} size="h5">
-              Call Stack
-            </Title>
-            <Text size="sm" c="dimmed" mt="sm">
-              Active method calls will appear here.
-            </Text>
-          </Paper>
-        </SimpleGrid>
+        <DebuggerWorkspace code={code} onCodeChange={setCode} />
       </section>
+      <footer className="app-statusbar">
+        <span>C# · Solution.cs</span>
+        <span>Drag tabs to arrange · Drag dividers to resize</span>
+      </footer>
     </main>
   );
 }

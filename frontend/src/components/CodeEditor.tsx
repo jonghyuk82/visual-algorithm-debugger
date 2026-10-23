@@ -11,7 +11,7 @@ export default function CodeEditor({ value, onChange }: CodeEditorProps) {
 
   return (
     <Editor
-      height="360px"
+      height="100%"
       language="csharp"
       value={value}
       onChange={(nextValue) => onChange(nextValue ?? "")}
@@ -19,7 +19,10 @@ export default function CodeEditor({ value, onChange }: CodeEditorProps) {
       options={{
         ariaLabel: "C# source code",
         minimap: { enabled: false },
-        fontSize: 14,
+        fontSize: 13,
+        padding: { top: 16, bottom: 16 },
+        lineHeight: 22,
+        fontFamily: "Menlo, Monaco, Consolas, monospace",
         automaticLayout: true,
         scrollBeyondLastLine: false,
       }}

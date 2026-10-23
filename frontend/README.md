@@ -83,3 +83,17 @@ The header ActionIcon opens a menu with Light, Dark, and System options. Its sun
 `src/components/CodeEditor.tsx` is a controlled C# editor: App owns the source string and passes `value` and `onChange`. Monaco provides syntax highlighting, line numbers, and editing; it does not compile or execute C#, or supply a C# semantic language service. Editor sizing responds to container changes, and its theme follows Mantine’s resolved color scheme. Source state is in memory and resets on refresh.
 
 The current wrapper uses its default CDN loader. The installed `monaco-editor` dependency provides types but has not been wired as the local runtime. Initial runtime loading requires network access. Verify editing, clearing all text, resizing the browser, and Light/Dark/System changes manually. Build and lint passed during review. Docking and resizable panels are outside this branch.
+
+## Docking Workspace (VAD-107)
+
+Dockview replaces the fixed grid with draggable tabs and resizable groups. The workspace fills the available viewport below a compact header and above a status bar. Initial groups contain Solution.cs, Visualization, Variables, and Call Stack. Monaco fills its group; source state remains in App. Empty panels explain their future purpose. Thin separators and blue hover/drag highlights provide an IDE-style appearance in Light/Dark/System modes. Drag a tab onto another group to combine tabs, or toward an edge to split; drag the divider to resize. Layout persistence and panel reopening controls are not yet implemented; refreshing restores the initial layout and sample source. Build and lint passed; visual and drag interactions require browser verification.
+
+Docking groups use subtle 6px rounded corners, 4px top tab corners, and an 8px outer workspace inset.
+
+Dockview themes also set a 6px gap between groups, keeping rounded panels visually separate while retaining divider resizing.
+
+Panel outlines use real 1px borders rather than inset shadows, with a contrasting gutter and a separate tab-header divider so editor content cannot cover the outline.
+
+Resize dividers display a centered three-dot grip: vertical dots between side-by-side groups and horizontal dots between stacked groups. The decorative grip does not intercept pointer events; the existing Dockview divider remains the drag target.
+
+The selected tab in the active group uses semibold accent text: deep blue in Light mode and light blue in Dark mode.

@@ -1,18 +1,165 @@
 .app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
+  --workspace-border: #c5cad3;
+  --workspace-gutter: #e5e7eb;
+  --workspace-chrome: #f3f4f6;
+  --workspace-surface: #ffffff;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--workspace-surface);
 }
 
-.app>header {
-  margin-bottom: 32px;
+[data-mantine-color-scheme="dark"] .app {
+  --workspace-border: #414147;
+  --workspace-gutter: #111114;
+  --workspace-chrome: #18181b;
+  --workspace-surface: #1e1e1e;
 }
 
-.app>header h1 {
-  margin: 0 0 8px;
+.app > header {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  background: var(--workspace-chrome);
+  border-bottom: 1px solid var(--workspace-border);
 }
 
-.app>header p {
-  margin: 0;
+.app > section {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  padding: 8px;
+  background: var(--workspace-gutter);
+}
+
+.workspace-dock-container {
+  height: 100%;
+  min-height: 0;
+}
+
+.debugger-dock {
+  --dv-activegroup-visiblepanel-tab-color: #0969da;
+  background: var(--workspace-gutter);
+  --dv-border-radius: 6px;
+  --dv-tab-border-radius: 4px 4px 0 0;
+  --dv-sash-color: transparent;
+  --dv-active-sash-color: #3794ff;
+  --dv-active-sash-transition-delay: 0s;
+  --dv-separator-border: var(--workspace-border);
+  --dv-group-view-background-color: var(--workspace-surface);
+  --dv-tabs-and-actions-container-background-color: var(--workspace-chrome);
+  --dv-activegroup-visiblepanel-tab-background-color: var(--workspace-surface);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--workspace-surface);
+  --dv-tabs-and-actions-container-height: 36px;
+  --dv-tab-font-size: 12px;
+}
+
+.debugger-dock .dv-groupview {
+  box-sizing: border-box;
+  border: 1px solid var(--workspace-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.debugger-dock .dv-tabs-and-actions-container {
+  border-bottom: 1px solid var(--workspace-border);
+}
+
+.debugger-dock .dv-tab.dv-active-tab {
+  border-top: 1px solid #3794ff;
+}
+
+[data-mantine-color-scheme="dark"] .debugger-dock {
+  --dv-activegroup-visiblepanel-tab-color: #75baff;
+}
+
+.debugger-dock .dv-active-group .dv-tab.dv-active-tab {
+  font-weight: bold;
+}
+
+/* Decorate the existing resize target without intercepting dragging. */
+.debugger-dock .dv-sash:not(.dv-disabled)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
   color: var(--mantine-color-dimmed);
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-repeat: repeat;
+  opacity: 0.85;
+}
+
+.debugger-dock .dv-horizontal > .dv-sash-container > .dv-sash::after {
+  width: 4px;
+  height: 18px;
+  background-size: 4px 6px;
+}
+
+.debugger-dock .dv-vertical > .dv-sash-container > .dv-sash::after {
+  width: 18px;
+  height: 4px;
+  background-size: 6px 4px;
+}
+
+.debugger-dock .dv-sash:hover::after,
+.debugger-dock .dv-sash:active::after {
+  color: white;
+  opacity: 1;
+}
+
+.workspace-empty {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--mantine-color-dimmed);
+}
+
+.workspace-empty-symbol {
+  font-family: monospace;
+  font-size: 32px;
+  opacity: 0.45;
+}
+
+.workspace-empty h2 {
+  color: var(--mantine-color-text);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 12px 0 6px;
+}
+
+.workspace-empty p {
+  max-width: 290px;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.workspace-empty-caption {
+  font-size: 10px;
+  margin-top: 18px;
+  opacity: 0.65;
+}
+
+.app-statusbar {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 14px;
+  border-top: 1px solid var(--workspace-border);
+  background: var(--workspace-chrome);
+  color: var(--mantine-color-dimmed);
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .app > header { padding: 10px 12px; }
+  .app-statusbar span:last-child { display: none; }
 }
