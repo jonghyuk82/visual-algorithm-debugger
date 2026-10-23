@@ -1,20 +1,27 @@
 .app {
-  --workspace-border: #c5cad3;
-  --workspace-gutter: #e5e7eb;
-  --workspace-chrome: #f3f4f6;
+  --workspace-border: #cbd9df;
+  --workspace-accent: #087953;
+  --workspace-text: #213b49;
+  --workspace-muted: #526c7c;
+  --workspace-gutter: #eaf1f4;
+  --workspace-chrome: #f3f8fa;
   --workspace-surface: #ffffff;
   height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--workspace-surface);
+  color: var(--workspace-text);
 }
 
 [data-mantine-color-scheme="dark"] .app {
-  --workspace-border: #414147;
-  --workspace-gutter: #111114;
-  --workspace-chrome: #18181b;
-  --workspace-surface: #1e1e1e;
+  --workspace-border: #2c4153;
+  --workspace-accent: #69e2b7;
+  --workspace-text: #e4edf5;
+  --workspace-muted: #a4b8c9;
+  --workspace-gutter: #0f1821;
+  --workspace-chrome: #14222e;
+  --workspace-surface: #182430;
 }
 
 .app > header {
@@ -28,7 +35,7 @@
   flex: 1;
   min-height: 0;
   min-width: 0;
-  padding: 8px;
+  padding: 10px 14px;
   background: var(--workspace-gutter);
 }
 
@@ -51,26 +58,31 @@
 }
 
 .debugger-dock {
-  --dv-activegroup-visiblepanel-tab-color: #0969da;
+  --dv-activegroup-visiblepanel-tab-color: #006b43;
+  --dv-inactivegroup-visiblepanel-tab-color: var(--workspace-muted);
+  --dv-activegroup-hiddenpanel-tab-color: var(--workspace-muted);
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--workspace-muted);
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--workspace-chrome);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--workspace-chrome);
   background: var(--workspace-gutter);
-  --dv-border-radius: 6px;
+  --dv-border-radius: 10px;
   --dv-tab-border-radius: 4px 4px 0 0;
   --dv-sash-color: transparent;
-  --dv-active-sash-color: #3794ff;
+  --dv-active-sash-color: var(--workspace-accent);
   --dv-active-sash-transition-delay: 0s;
   --dv-separator-border: var(--workspace-border);
   --dv-group-view-background-color: var(--workspace-surface);
   --dv-tabs-and-actions-container-background-color: var(--workspace-chrome);
   --dv-activegroup-visiblepanel-tab-background-color: var(--workspace-surface);
   --dv-inactivegroup-visiblepanel-tab-background-color: var(--workspace-surface);
-  --dv-tabs-and-actions-container-height: 36px;
+  --dv-tabs-and-actions-container-height: 40px;
   --dv-tab-font-size: 12px;
 }
 
 .debugger-dock .dv-groupview {
   box-sizing: border-box;
   border: 1px solid var(--workspace-border);
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -79,15 +91,15 @@
 }
 
 .debugger-dock .dv-tab.dv-active-tab {
-  border-top: 1px solid #3794ff;
+  border-top: 1px solid var(--workspace-accent);
 }
 
 [data-mantine-color-scheme="dark"] .debugger-dock {
-  --dv-activegroup-visiblepanel-tab-color: #75baff;
+  --dv-activegroup-visiblepanel-tab-color: #40f5b1;
 }
 
 .debugger-dock .dv-active-group .dv-tab.dv-active-tab {
-  font-weight: bold;
+  font-weight: 800;
 }
 
 /* Decorate the existing resize target without intercepting dragging. */
@@ -98,7 +110,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  color: var(--mantine-color-dimmed);
+  color: var(--workspace-muted);
   background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
   background-repeat: repeat;
   opacity: 0.85;
@@ -131,7 +143,7 @@
   justify-content: center;
   padding: 24px;
   text-align: center;
-  color: var(--mantine-color-dimmed);
+  color: var(--workspace-muted);
 }
 
 .workspace-empty-symbol {
@@ -141,7 +153,7 @@
 }
 
 .workspace-empty h2 {
-  color: var(--mantine-color-text);
+  color: var(--workspace-text);
   font-size: 13px;
   font-weight: 500;
   margin: 12px 0 6px;
@@ -168,11 +180,46 @@
   padding: 4px 14px;
   border-top: 1px solid var(--workspace-border);
   background: var(--workspace-chrome);
-  color: var(--mantine-color-dimmed);
+  color: var(--workspace-muted);
   font-size: 11px;
 }
 
 @media (max-width: 600px) {
   .app > header { padding: 10px 12px; }
   .app-statusbar span:last-child { display: none; }
+}
+
+/* Palette shared by Mantine controls and the docking workspace. */
+.app {
+  --mantine-color-text: var(--workspace-text);
+  --mantine-color-dimmed: var(--workspace-muted);
+  --mantine-color-body: var(--workspace-surface);
+  --mantine-color-default: var(--workspace-chrome);
+  --mantine-color-default-hover: var(--workspace-surface);
+  --mantine-color-default-border: var(--workspace-border);
+}
+
+.app > header h1 {
+  letter-spacing: -0.5px;
+  font-weight: 750;
+}
+
+.debugger-dock .dv-tab {
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.workspace-empty h2 {
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.workspace-empty-symbol {
+  color: var(--workspace-accent);
+  opacity: 0.7;
+}
+
+.app-statusbar {
+  font-family: var(--mantine-font-family-monospace);
+  padding-block: 7px;
 }

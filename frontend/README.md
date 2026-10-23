@@ -105,3 +105,9 @@ The workspace toolbar provides Reset layout. It clears the Dockview panels and r
 ## Layout Persistence (VAD-109)
 
 `layoutStorage.ts` reads and writes `vad.workspace-layout.v1` in localStorage, catching storage and JSON errors. `restoreLayout.ts` performs a shallow object check, delegates deserialization to Dockview, and clears partial state before creating defaults if restoration throws. This is not full schema validation. `useLayoutPersistence.ts` saves the initial restored/default layout, subscribes to layout changes, and disposes the subscription during cleanup. Saving failures return false and do not currently display a warning. Browser storage is per origin; source code is not persisted. Manually verify move/resize/close plus reload, Reset plus reload, malformed JSON, structurally invalid data, and unavailable storage.
+
+## Navy and Mint Theme
+
+The reference-inspired palette uses navy panels, mint accents, and slate secondary text. Mantine theme configuration lives in `src/theme/appTheme.ts`, Dockview palette variables in `App.css`, and Monaco theme registration in `src/theme/editorThemes.ts`. Dark mode uses the custom `vad-navy` editor theme; Light retains Monaco light styling. System follows the resolved preference. Fonts use local system sans-serif and monospace stacks; no external font download is required, so exact rendering depends on installed fonts. Docking, reset, and layout persistence are unchanged.
+
+The active group’s selected tab uses stronger mint (#40f5b1) in Dark mode, deep green (#006b43) in Light mode, and font weight 800.
