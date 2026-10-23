@@ -108,3 +108,7 @@ The target layout also includes `execution-engine/`, `.github/workflows/`, and `
 - Deployment health checks and a documented rollback procedure.
 
 The hosting provider remains undecided. Before public code execution, the runner must provide verified isolation and resource limits; a child process alone is not a security sandbox.
+
+## C# Editor
+
+The Code panel includes Monaco with C# syntax highlighting and editable source managed in React state. Its theme follows the resolved Light/Dark/System preference. Refreshing the page resets the source to the sample; source persistence and C# execution are not implemented. The React wrapper currently loads the editor runtime from its default CDN, so initial loading requires network access. Installing `monaco-editor` does not by itself configure local runtime loading. Docking and panel resizing are deferred to a separate branch.
